@@ -16,8 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".statistics.StatisticActivity" />
-        <activity android:name=".data.StatisticsActivity"></activity>
+        <activity android:name=".statistics.StatisticsActivity" />
     </application>
 
 </manifest>

@@ -11,7 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import in.engineerakash.todoappmvvm.R;
-import in.engineerakash.todoappmvvm.data.StatisticsActivity;
+import in.engineerakash.todoappmvvm.statistics.StatisticsActivity;
 
 public class TasksActivity extends AppCompatActivity {
 
