@@ -7,6 +7,7 @@ import in.engineerakash.todoappmvvm.R;
 
 public class TaskDetailActivity extends AppCompatActivity {
 
+    public static final String EXTRA_TASK_ID = "TASK_ID";
     public static final int DELETE_RESULT_OK = RESULT_FIRST_USER + 2;
 
     public static final int EDIT_RESULT_OK = RESULT_FIRST_USER + 3;
