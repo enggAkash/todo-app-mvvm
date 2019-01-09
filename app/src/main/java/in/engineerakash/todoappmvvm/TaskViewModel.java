@@ -5,9 +5,10 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.Observable;
 import android.databinding.ObservableField;
+import android.support.annotation.Nullable;
 
 import in.engineerakash.todoappmvvm.data.Task;
-import in.engineerakash.todoappmvvm.data.source.TaskRepository;
+import in.engineerakash.todoappmvvm.data.source.TasksRepository;
 import in.engineerakash.todoappmvvm.data.source.TasksDataSource;
 
 /**
@@ -23,13 +24,13 @@ public abstract class TaskViewModel extends BaseObservable implements TasksDataS
 
     public final ObservableField<Task> mTaskObservable = new ObservableField<>();
 
-    private final TaskRepository mTasksRepository;
+    private final TasksRepository mTasksRepository;
 
     private final Context mContext;
 
     private boolean mIsDataLoading;
 
-    public TaskViewModel(Context context, TaskRepository tasksRepository) {
+    public TaskViewModel(Context context, TasksRepository tasksRepository) {
         mContext = context.getApplicationContext();    // force use of application context
         mTasksRepository = tasksRepository;
 
@@ -109,6 +110,31 @@ public abstract class TaskViewModel extends BaseObservable implements TasksDataS
         notifyChange(); // For the @Bindable properties
     }
 
+    @Override
+    public void onDataNotAvailable() {
+        mTaskObservable.set(null);
+        mIsDataLoading = false;
+    }
 
+    public void deleteTask() {
+        if (mTaskObservable.get() != null) {
+            mTasksRepository.deleteTask(mTaskObservable.get().getId());
+        }
+    }
+
+    public void onRefresh() {
+        if (mTaskObservable.get() != null) {
+            start(mTaskObservable.get().getId());
+        }
+    }
+
+    public String getSnackBarText() {
+        return snackBarText.get();
+    }
+
+    @Nullable
+    protected String getTaskId() {
+        return mTaskObservable.get().getId();
+    }
 
 }

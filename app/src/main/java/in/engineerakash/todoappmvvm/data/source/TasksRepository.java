@@ -19,9 +19,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * obtained from the server, by using the remote data source only if the local database doesn't
  * exist or is empty.
  */
-public class TaskRepository implements TasksDataSource {
+public class TasksRepository implements TasksDataSource {
 
-    private static TaskRepository INSTANCE = null;
+    private static TasksRepository INSTANCE = null;
 
     private TasksDataSource mTasksRemoteDataSource;
 
@@ -35,7 +35,7 @@ public class TaskRepository implements TasksDataSource {
     boolean mCacheIsDirty = false;
 
     // prevent direct instantiation
-    private TaskRepository(@NonNull TasksDataSource tasksRemoteDataSource, @NonNull TasksDataSource tasksLocalDataSource) {
+    private TasksRepository(@NonNull TasksDataSource tasksRemoteDataSource, @NonNull TasksDataSource tasksLocalDataSource) {
         this.mTasksRemoteDataSource = checkNotNull(mTasksRemoteDataSource);
         this.mTasksLocalDataSource = checkNotNull(mTasksLocalDataSource);
     }
@@ -45,11 +45,11 @@ public class TaskRepository implements TasksDataSource {
      *
      * @param tasksRemoteDataSource the backend(remote) data source
      * @param tasksLocalDataSource  the device storage data source
-     * @return the {@link TaskRepository} instance
+     * @return the {@link TasksRepository} instance
      */
-    public static TaskRepository getInstance(TasksDataSource tasksRemoteDataSource, TasksDataSource tasksLocalDataSource) {
+    public static TasksRepository getInstance(TasksDataSource tasksRemoteDataSource, TasksDataSource tasksLocalDataSource) {
         if (INSTANCE == null)
-            INSTANCE = new TaskRepository(tasksRemoteDataSource, tasksLocalDataSource);
+            INSTANCE = new TasksRepository(tasksRemoteDataSource, tasksLocalDataSource);
         return INSTANCE;
     }
 
