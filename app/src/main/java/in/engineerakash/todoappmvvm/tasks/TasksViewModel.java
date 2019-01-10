@@ -104,7 +104,7 @@ public class TasksViewModel extends BaseObservable {
                 tasksAddViewVisible.set(true);
                 break;
             case ACTIVE_TASKS:
-                currentFilteringLabel.set(mContext.getString(R.string.label_all));
+                currentFilteringLabel.set(mContext.getString(R.string.label_active));
                 noTasksLabel.set(mContext.getString(R.string.no_tasks_active));
                 noTaskIconRes.set(mContext.getResources().getDrawable(R.drawable.ic_check_circle_24dp));
                 tasksAddViewVisible.set(false);
