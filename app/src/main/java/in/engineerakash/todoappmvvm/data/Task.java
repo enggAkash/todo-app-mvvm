@@ -2,6 +2,7 @@ package in.engineerakash.todoappmvvm.data;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -39,6 +40,7 @@ public class Task {
      * @param title       title of the task
      * @param description description of the task
      */
+    @Ignore
     public Task(String title, String description) {
         this(title, description, UUID.randomUUID().toString(), false);
     }
@@ -51,6 +53,7 @@ public class Task {
      * @param description description of the task
      * @param id          id of the task
      */
+    @Ignore
     public Task(String title, String description, String id) {
         this(title, description, id, false);
     }
@@ -62,6 +65,7 @@ public class Task {
      * @param description description of the task
      * @param completed   true if the task is complete, false if it's active
      */
+    @Ignore
     public Task(String title, String description, boolean completed) {
         this(title, description, UUID.randomUUID().toString(), completed);
     }

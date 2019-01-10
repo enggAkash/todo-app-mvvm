@@ -1,5 +1,6 @@
 package in.engineerakash.todoappmvvm.data.source.local;
 
+import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
@@ -12,6 +13,7 @@ import in.engineerakash.todoappmvvm.data.Task;
 /**
  * Data Access Object for the tasks table
  */
+@Dao
 public interface TasksDao {
 
     /**

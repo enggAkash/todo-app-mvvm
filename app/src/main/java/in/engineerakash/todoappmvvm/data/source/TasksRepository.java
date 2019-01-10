@@ -36,8 +36,8 @@ public class TasksRepository implements TasksDataSource {
 
     // prevent direct instantiation
     private TasksRepository(@NonNull TasksDataSource tasksRemoteDataSource, @NonNull TasksDataSource tasksLocalDataSource) {
-        this.mTasksRemoteDataSource = checkNotNull(mTasksRemoteDataSource);
-        this.mTasksLocalDataSource = checkNotNull(mTasksLocalDataSource);
+        this.mTasksRemoteDataSource = checkNotNull(tasksRemoteDataSource);
+        this.mTasksLocalDataSource = checkNotNull(tasksLocalDataSource);
     }
 
     /**

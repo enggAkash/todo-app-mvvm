@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,9 +15,14 @@ import android.view.MenuItem;
 import in.engineerakash.todoappmvvm.R;
 import in.engineerakash.todoappmvvm.ViewModelHolder;
 import in.engineerakash.todoappmvvm.addedittask.AddEditTaskActivity;
+import in.engineerakash.todoappmvvm.data.source.TasksRepository;
+import in.engineerakash.todoappmvvm.data.source.local.TasksLocalDataSource;
+import in.engineerakash.todoappmvvm.data.source.local.ToDoDatabase;
+import in.engineerakash.todoappmvvm.data.source.remote.TasksRemoteDataSource;
 import in.engineerakash.todoappmvvm.statistics.StatisticsActivity;
 import in.engineerakash.todoappmvvm.taskdetail.TaskDetailActivity;
 import in.engineerakash.todoappmvvm.util.ActivityUtils;
+import in.engineerakash.todoappmvvm.util.AppExecutors;
 
 public class TasksActivity extends AppCompatActivity implements TasksNavigator, TaskItemNavigator {
 
@@ -62,8 +68,13 @@ public class TasksActivity extends AppCompatActivity implements TasksNavigator, 
             return retainedViewModel.getViewModel();
         } else {
             // There is no ViewModel yet, create it
+
+            TasksRemoteDataSource remoteDataSource = TasksRemoteDataSource.getInstance();
+            TasksLocalDataSource localDataSource = TasksLocalDataSource.getInstance(new AppExecutors(),
+                    ToDoDatabase.getInstance(getApplicationContext()).tasksDao());
+
             TasksViewModel viewModel = new TasksViewModel(
-                    null, // TODO Injection.provideTasksRepository(getApplicationContext()),
+                    TasksRepository.getInstance(remoteDataSource, localDataSource),
                     getApplicationContext()
             );
             // and bind it to this activity's lifecycle using the Fragment Manager.
@@ -104,6 +115,17 @@ public class TasksActivity extends AppCompatActivity implements TasksNavigator, 
         NavigationView navigationView = findViewById(R.id.nav_view);
         if (navigationView != null)
             setupDrawerContent(navigationView);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Open the navigation drawer when the home icon is selected from the toolbar.
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {

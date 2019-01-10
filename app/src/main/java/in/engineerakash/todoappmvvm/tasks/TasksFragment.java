@@ -25,8 +25,12 @@ import in.engineerakash.todoappmvvm.R;
 import in.engineerakash.todoappmvvm.ScrollChildSwipeRefreshLayout;
 import in.engineerakash.todoappmvvm.data.Task;
 import in.engineerakash.todoappmvvm.data.source.TasksRepository;
+import in.engineerakash.todoappmvvm.data.source.local.TasksLocalDataSource;
+import in.engineerakash.todoappmvvm.data.source.local.ToDoDatabase;
+import in.engineerakash.todoappmvvm.data.source.remote.TasksRemoteDataSource;
 import in.engineerakash.todoappmvvm.databinding.TaskItemBinding;
 import in.engineerakash.todoappmvvm.databinding.TasksFragBinding;
+import in.engineerakash.todoappmvvm.util.AppExecutors;
 import in.engineerakash.todoappmvvm.util.SnackBarUtils;
 
 /**
@@ -174,10 +178,14 @@ public class TasksFragment extends Fragment {
     private void setupListAdapter() {
         ListView listView = mTasksFragBinding.tasksList;
 
+        TasksRemoteDataSource remoteDataSource = TasksRemoteDataSource.getInstance();
+        TasksLocalDataSource localDataSource = TasksLocalDataSource.getInstance(new AppExecutors(),
+                ToDoDatabase.getInstance(getContext().getApplicationContext()).tasksDao());
+
         mListAdapter = new TasksAdapter(
                 new ArrayList<Task>(0),
                 (TasksActivity) getActivity(),
-                null/*TODO Injection.provideTasksRepository(getContext().getApplicationContext())*/,
+                TasksRepository.getInstance(remoteDataSource, localDataSource),
                 mTasksViewModel
         );
         listView.setAdapter(mListAdapter);
