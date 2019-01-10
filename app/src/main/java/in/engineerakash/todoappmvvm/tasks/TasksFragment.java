@@ -8,9 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import in.engineerakash.todoappmvvm.R;
+import in.engineerakash.todoappmvvm.data.Task;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Display a list of grid {@link Task}s . User can choose to view All, Active, Completed Tasks.
  */
 public class TasksFragment extends Fragment {
 
@@ -33,7 +34,7 @@ public class TasksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tasks, container, false);
+        return inflater.inflate(R.layout.tasks_frag, container, false);
     }
 
     public void setViewModel(TasksViewModel viewModel) {
