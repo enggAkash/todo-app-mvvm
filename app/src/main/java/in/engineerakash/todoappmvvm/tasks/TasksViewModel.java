@@ -92,7 +92,7 @@ public class TasksViewModel extends BaseObservable {
      *                    {@link TasksFilterType#ACTIVE_TASKS}, or
      *                    {@link TasksFilterType#COMPLETE_TASKS}
      */
-    private void setFiltering(TasksFilterType requestType) {
+    public void setFiltering(TasksFilterType requestType) {
         mCurrentFiltering = requestType;
 
         //Depending on the request type, set the label, icon drawable etc
@@ -124,7 +124,7 @@ public class TasksViewModel extends BaseObservable {
         loadTasks(false, false);
     }
 
-    public String getSnackBarTet() {
+    public String getSnackBarText() {
         return snackBarText.get();
     }
 
